@@ -4,8 +4,13 @@
     "healthPort": 8081,
     "infoFilePath": "../api/config/info.json",
     "cfApi": "https://api.bosh-lite.com",
+<<<<<<< HEAD
     "cfClientId": "admin",
     "cfClientSecret": "admin-secret",
+=======
+    "cfClientId": "scalerui_client",
+    "cfClientSecret": "scalerui-secret",
+>>>>>>> [auth] check token via uaa
     "skipSSLValidation": false,
     "cacheTTL": 10,
     "db": {

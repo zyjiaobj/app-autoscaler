@@ -5,7 +5,7 @@ module.exports = function(settings) {
   var path = require('path');
   var fs = require('fs');
   var HttpStatus = require('http-status-codes');
-  var jwt = require('jsonwebtoken');
+  var Base64 = require('js-base64').Base64;
   var obj = {};
   obj.checkUserAuthorization = function(req, callback) {
     var appId = req.params.app_id;
@@ -21,6 +21,7 @@ module.exports = function(settings) {
       callback(null, false);
       return;
     }
+<<<<<<< HEAD
     var decodeJson = jwt.decode(userToken.split(' ').length > 0 && userToken.split(' ')[1]);
     if (decodeJson && decodeJson.scope && decodeJson.scope.indexOf("cloud_controller.admin") >= 0) {
       callback(null, true);
@@ -34,6 +35,14 @@ module.exports = function(settings) {
         callback(null, true);
       } else {
         logger.info("Normal user with scope: " + scope);
+=======
+    getUserScope(req, function(error, scope) {
+      if (!error && scope && scope.indexOf("cloud_controller.admin") >= 0) {
+        callback(null, true);
+        logger.debug("Admin user with scope: " + scope);
+        return;
+      } else {
+>>>>>>> [auth] check token via uaa
         getUserInfo(req, function(error, userId) {
           if (error) {
             callback(error, null);
@@ -42,7 +51,11 @@ module.exports = function(settings) {
               url: ccEndpoint + "/v2/users/" + userId + "/spaces?q=app_guid:" + appId + "&q=developer_guid:" + userId,
               method: "GET",
               json: true,
+<<<<<<< HEAD
               timeout: settings.httpClientTimeout,
+=======
+              timeout: 10000,
+>>>>>>> [auth] check token via uaa
               rejectUnauthorized: !settings.skipSSLValidation,
               headers: {
                 "Authorization": userToken,
@@ -168,7 +181,11 @@ module.exports = function(settings) {
       url: obj.tokenEndpoint + "/check_token?token=" + userToken.split(" ")[1],
       method: "POST",
       json: true,
+<<<<<<< HEAD
       timeout: settings.httpClientTimeout,
+=======
+      timeout: 10000,
+>>>>>>> [auth] check token via uaa
       rejectUnauthorized: !settings.skipSSLValidation,
       headers: {
         "Authorization": "Basic " + Base64.encode(settings.cfClientId + ":" + settings.cfClientSecret),

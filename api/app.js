@@ -220,4 +220,7 @@ module.exports = function (settings, credentialCache, callback) {
 
   return { "internalServer": server, "publicServer": publicServer, "healthServer": healthServer };
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> [auth] check token via uaa
